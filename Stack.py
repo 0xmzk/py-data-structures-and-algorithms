@@ -50,6 +50,9 @@ class Stack:
     def __str__(self) -> str:
         return f"{self.stack}"
 
+    def __len__(self) -> int:
+        return self.size
+
 
 class DynamicStack(Stack):
     def __init__(self, size) -> None:

@@ -56,6 +56,9 @@ class Queue:
     def printPointers(self):
         print(f"Head: {self.head_pointer}\nTail:{self.tail_pointer}")
 
+    def __len__(self) -> int:
+        return self.size
+
     def __str__(self) -> str:
         return f"{self.queue}"
 
