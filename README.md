@@ -5,7 +5,7 @@
 - [] Binary Tree
 - [x] Linked List
 - [x] Queue
-- [ ] Circular Queue
+-- [ ] Circular Queue
 - [x] Stack
 - [] Heap
 
