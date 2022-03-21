@@ -4,7 +4,7 @@
 - [x] Graph (Mixed, Directed & Undirected)
 - [ ] Binary Tree
 - [x] Linked List
-- [ ] Doubly Linked Lists
+- [x] Doubly Linked Lists
 - [x] Queue
 - [ ] Circular Queue
 - [x] Stack

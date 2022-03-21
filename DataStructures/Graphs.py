@@ -1,3 +1,6 @@
+# TODO: Graph Traversals (Breadth first seach, Depthfirst search, pre/in/post order)
+# TODO: Graph Algorithms (Dijkstras)
+
 class Vertex:
     class VertexRequiresLabel(Exception):
         def __str__(self) -> str:
@@ -12,8 +15,6 @@ class Vertex:
     def getLabel(self):
         return self.label
 
-    # def __str__(self):
-    #     return str(self.label)
 
     def __hash__(self):
         return hash(self.label)
@@ -120,9 +121,11 @@ class Graph:
 
 
 class MixedGraph(Graph):
+
     def __init__(self, v: set = set(), e: set = list()):
         self.edges = e
         self.vertices = v
+        self.valid_edges = [UndirectedEdge, DirectedEdge, BidirectionalEdge]
 
     def vertexSetContains(self, v: Vertex):
         return (v in self.vertices)
@@ -179,6 +182,10 @@ class MixedGraph(Graph):
                 degree += 1
         return degree
 
+    # TODO: Fix the code below to function
+    # These slides + nodes should help:
+    # https://jlmartin.ku.edu/courses/math105-F11/Lectures/chapter5-part2.pdf
+
     # def hasEulerianCircuit(self):
     #     for vertex in self.vertices:
     #         d = self.getVertexDegree(vertex)
@@ -197,7 +204,10 @@ class MixedGraph(Graph):
     #     return True
 
     def _isEdgeValid(self, e: Edge):
-        return isinstance(e, DirectedEdge) or isinstance(e, BidirectionalEdge) or isinstance(e, UndirectedEdge)
+        for i in self.valid_edges:
+            if not isinstance(e, i):
+                return False
+        return True
 
     def _isEven(self, number:int):
         return not bool(number % 2)
@@ -206,39 +216,21 @@ class DirectedGraph(MixedGraph):
     def __init__(self, v: set = set(), e: set = set()):
         self.vertices = v
         self.edges = set()
+        self.valid_edges = [DirectedEdge, BidirectionalEdge]
         for edge in e:
             if not self._isEdgeValid(edge):
                 raise Graph.InvalidObjType(edge, self)
             self.edges.add(edge)
-
-    def addEdge(self, e: Edge):
-        if not self._isEdgeValid(e):
-            raise Graph.InvalidObjType(e, self)
-        if self.edgeSetContains(e):
-            raise Graph.ObjAlreadyInGraph(e)
-        else:
-            self.edges.add(e)
-
-    def _isEdgeValid(self, e: Edge):
-        return isinstance(e, DirectedEdge) or isinstance(e, BidirectionalEdge)
 
 
 class UndirectedGraph(MixedGraph):
     def __init__(self, v: set = set(), e: set = set()):
         self.vertices = v
         self.edges = set()
+        self.valid_edges = [UndirectedEdge]
         for edge in e:
             if not self._isEdgeValid(edge):
                 raise Graph.InvalidObjType(edge, self)
             self.edges.add(edge)
 
-    def addEdge(self, e: Edge):
-        if not self._isEdgeValid(e):
-            raise Graph.InvalidObjType(e, self)
-        if self.edgeSetContains(e):
-            raise Graph.ObjAlreadyInGraph(e)
-        else:
-            self.edges.add(e)
 
-    def _isEdgeValid(self, e: Edge):
-        return isinstance(e, UndirectedEdge)
