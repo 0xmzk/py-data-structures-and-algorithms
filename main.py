@@ -1,12 +1,12 @@
-from tests import *
+from testing import *
 
-def tests():
+def print_tests():
     import pkgutil
-    print([name for _, name, _ in pkgutil.iter_modules(['tests'])])
+    print([name for _, name, _ in pkgutil.iter_modules(['testing'])])
     
 def main():
-    tests()
+    print_tests()
+    Tree_Tests.binary_tree()
     
-
 if __name__ == "__main__":
     main()
